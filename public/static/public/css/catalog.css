@@ -1,0 +1,48 @@
+main{
+    padding: 10rem 0;
+}
+.site-logo a,
+header .site-menu a,
+.gamburger a{
+    color: black !important;
+}
+.filter{
+    top: -55vh;
+}
+.card-custom{
+    margin: 1rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 60vh;
+    display: flex;
+    justify-content: flex-end;
+}
+.card-data{
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.card-data .other{
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+.slick-slider-dots {
+    position: relative;
+}
+.slick-dots{
+    bottom: 0 !important;
+}
+.slick-dots li{
+    margin: 0 8px !important;
+}
+.slick-dots li button {
+    background: rgba(13, 110, 253, 0) !important;
+    width: 1rem !important;
+    height: 10px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 0 5px #6e6e6e;
+}
+.slick-dots li.slick-active button{
+    background: black !important;
+}

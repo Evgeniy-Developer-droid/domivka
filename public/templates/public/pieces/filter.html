@@ -1,0 +1,124 @@
+<div class="modal modal-signin position-fixed d-none"
+     style="padding-top: 7rem;z-index: 99999;background: #000000ad;" tabindex="-1" role="dialog" id="modal-filter">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                {#        <h5 class="modal-title">Modal title</h5>#}
+                <h2 class="fw-bold mb-0">Search Real Estate</h2>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <form class="">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control rounded-3" id="city" placeholder="City"
+                               autocomplete="off">
+                        <label for="city">City</label>
+                    </div>
+                    <div class=" mb-3">
+                        <select class="form-select" id="type">
+                            <option selected>Type</option>
+                            <option value="home">Home</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="office">Office</option>
+                        </select>
+                    </div>
+                    <div class=" mb-3">
+                        <select class="form-select" id="room">
+                            <option selected>Rooms</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3+</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <input type="number" class="form-control rounded-3" id="price-min" placeholder="Price Min"
+                               autocomplete="off">
+                    </div>
+                    <div class="mb-3">
+                        <input type="number" class="form-control rounded-3" id="price-max" placeholder="Price Max"
+                               autocomplete="off">
+                    </div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    jQuery(document).ready(function (){
+
+        const page_obj = {page:1}
+
+        const page_obj_init = () => {
+            let url = new URL(window.location.href);
+            if(url.searchParams.get("page")){page_obj.page = url.searchParams.get("page")}
+            if(url.searchParams.get("city")){
+                page_obj.city = url.searchParams.get("city")
+                $('#city').val(url.searchParams.get("city"))
+            }
+            if(url.searchParams.get("type_real_estate")){
+                page_obj.type_real_estate = url.searchParams.get("type_real_estate")
+                $('#type').val(url.searchParams.get("type_real_estate"))
+            }
+            if(url.searchParams.get("rooms")){
+                page_obj.rooms = url.searchParams.get("rooms")
+                $('#room').val(url.searchParams.get("rooms"))
+            }
+            if(url.searchParams.get("price_min")){
+                page_obj.price_min = url.searchParams.get("price_min")
+                $('#price-min').val(url.searchParams.get("price_min"))
+            }
+            if(url.searchParams.get("price_max")){
+                page_obj.price_max = url.searchParams.get("price_max")
+                $('#price-max').val(url.searchParams.get("price_max"))
+            }
+        }
+
+        $('#city').change(function (){
+            page_obj.city = $(this).val();
+        })
+        $('#type').change(function (){
+            page_obj.type_real_estate = $(this).val();
+        })
+        $('#room').change(function (){
+            page_obj.rooms = $(this).val();
+        })
+        $('#price-min').change(function (){
+            page_obj.price_min = $(this).val();
+        })
+        $('#price-max').change(function (){
+            page_obj.price_max = $(this).val();
+        })
+
+        $('form').submit(function (e){
+            e.preventDefault();
+            redirect()
+        })
+
+        $('#modal-filter div').click(function (e){
+            e.stopPropagation();
+        })
+
+        page_obj_init()
+
+
+        const redirect = () => {
+            let link = "?"
+            for(let obj in page_obj){
+                link += `${obj}=${page_obj[obj]}&`
+            }
+            window.location = window.location.origin+"/catalog/"+link
+        }
+
+    })
+</script>
+<script>
+    function click() {
+        let el = document.getElementById("modal-filter");
+        el.classList.remove('d-block')
+        el.classList.add('d-none')
+    }
+
+    let el = document.getElementById("modal-filter");
+    el.addEventListener("click", click, false);
+</script>

@@ -1,0 +1,82 @@
+<div class="modal modal-signin position-fixed d-block" style="padding-top: 7rem" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                {#        <h5 class="modal-title">Modal title</h5>#}
+                <h2 class="fw-bold mb-0">Search Real Estate</h2>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <form class="">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control rounded-3" id="city" placeholder="City"
+                               autocomplete="off">
+                        <label for="city">City</label>
+                    </div>
+                    <div class=" mb-3">
+                        <select class="form-select" id="type">
+                            <option selected>Type</option>
+                            <option value="home">Home</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="office">Office</option>
+                        </select>
+                    </div>
+                    <div class=" mb-3">
+                        <select class="form-select" id="room">
+                            <option selected>Rooms</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3+</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <input type="number" class="form-control rounded-3" id="price-min" placeholder="Price Min"
+                               autocomplete="off">
+                    </div>
+                    <div class="mb-3">
+                        <input type="number" class="form-control rounded-3" id="price-max" placeholder="Price Max"
+                               autocomplete="off">
+                    </div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    jQuery(document).ready(function (){
+
+        const page_obj = {page:1}
+
+        $('#city').change(function (){
+            page_obj.city = $(this).val();
+        })
+        $('#type').change(function (){
+            page_obj.type_real_estate = $(this).val();
+        })
+        $('#room').change(function (){
+            page_obj.rooms = $(this).val();
+        })
+        $('#price-min').change(function (){
+            page_obj.price_min = $(this).val();
+        })
+        $('#price-max').change(function (){
+            page_obj.price_max = $(this).val();
+        })
+
+        $('form').submit(function (e){
+            e.preventDefault();
+            redirect()
+        })
+
+
+        const redirect = () => {
+            let link = "?"
+            for(let obj in page_obj){
+                link += `${obj}=${page_obj[obj]}&`
+            }
+            window.location = window.location.origin+"/catalog/"+link
+        }
+
+    })
+</script>

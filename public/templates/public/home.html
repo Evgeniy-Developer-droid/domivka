@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'public/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'public/css/bootstrap-utilities.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'public/css/header.css' %}">
+    <style>
+        .hero {
+            height: 100vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        body:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, .5);
+            -webkit-transition: .3s all ease;
+            -o-transition: .3s all ease;
+            transition: .3s all ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+{% include 'public/pieces/header.html' %}
+<div class="hero" style="background-image: url({% static 'public/img/back3.jpg' %})"></div>
+
+
+
+<script src="{% static 'public/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'public/js/jquery.sticky.js' %}"></script>
+{#<script src="{% static 'public/js/bootstrap.min.js' %}"></script>#}
+{#<script src="{% static 'public/js/bootstrap.bundle.min.js' %}"></script>#}
+<script src="{% static 'public/js/header.js' %}"></script>
+{% include 'public/pieces/filter-small.html' %}
+</body>
+</html>
