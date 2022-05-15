@@ -1,0 +1,202 @@
+[
+  {
+    "model": "public.region",
+    "pk": 1,
+    "fields": {
+      "name": "Вінницька область",
+      "normalized_name": "vin"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 2,
+    "fields": {
+      "name": "Волинська область",
+      "normalized_name": "vol"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 3,
+    "fields": {
+      "name": "Дніпропетровська область",
+      "normalized_name": "dnp"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 4,
+    "fields": {
+      "name": "Донецька область",
+      "normalized_name": "don"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 5,
+    "fields": {
+      "name": "Житомирська область",
+      "normalized_name": "zht"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 6,
+    "fields": {
+      "name": "Закарпатська область",
+      "normalized_name": "zak"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 7,
+    "fields": {
+      "name": "Запорізька область",
+      "normalized_name": "zap"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 8,
+    "fields": {
+      "name": "Івано-Франківська область",
+      "normalized_name": "if"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 9,
+    "fields": {
+      "name": "Київська область",
+      "normalized_name": "ko"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 10,
+    "fields": {
+      "name": "Кіровоградська область",
+      "normalized_name": "kir"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 11,
+    "fields": {
+      "name": "Крим (АРК)",
+      "normalized_name": "cri"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 12,
+    "fields": {
+      "name": "Луганська область",
+      "normalized_name": "lug"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 13,
+    "fields": {
+      "name": "Львівська область",
+      "normalized_name": "lv"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 14,
+    "fields": {
+      "name": "Миколаївська область",
+      "normalized_name": "nik"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 15,
+    "fields": {
+      "name": "Одеська область",
+      "normalized_name": "od"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 16,
+    "fields": {
+      "name": "Полтавська область",
+      "normalized_name": "pol"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 17,
+    "fields": {
+      "name": "Рівненська область",
+      "normalized_name": "rov"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 18,
+    "fields": {
+      "name": "Сумська область",
+      "normalized_name": "sum"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 19,
+    "fields": {
+      "name": "Тернопільська область",
+      "normalized_name": "ter"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 20,
+    "fields": {
+      "name": "Харківська область",
+      "normalized_name": "kha"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 21,
+    "fields": {
+      "name": "Херсонська область",
+      "normalized_name": "khe"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 22,
+    "fields": {
+      "name": "Хмельницька область",
+      "normalized_name": "khm"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 23,
+    "fields": {
+      "name": "Черкаська область",
+      "normalized_name": "chk"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 24,
+    "fields": {
+      "name": "Чернігівська область",
+      "normalized_name": "chn"
+    }
+  },
+  {
+    "model": "public.region",
+    "pk": 25,
+    "fields": {
+      "name": "Чернівецька область",
+      "normalized_name": "chv"
+    }
+  }
+]

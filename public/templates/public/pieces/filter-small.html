@@ -8,22 +8,34 @@
 
             <div class="modal-body p-5 pt-0">
                 <form class="">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-3" id="city" placeholder="City"
-                               autocomplete="off">
-                        <label for="city">City</label>
+                    <div class=" mb-3">
+                        <select class="form-select" id="region">
+                            <option selected  value="">Region</option>
+                        </select>
+                    </div>
+                    <div class=" mb-3">
+                        <select class="form-select" id="city">
+                            <option selected  value="">City</option>
+                        </select>
                     </div>
                     <div class=" mb-3">
                         <select class="form-select" id="type">
-                            <option selected>Type</option>
-                            <option value="home">Home</option>
+                            <option selected  value="">Type</option>
+                            <option value="house">House</option>
                             <option value="apartment">Apartment</option>
                             <option value="office">Office</option>
                         </select>
                     </div>
                     <div class=" mb-3">
+                        <select class="form-select" id="service_type">
+                            <option selected value="">Service Type</option>
+                            <option value="sale">Sale</option>
+                            <option value="rent">Rent</option>
+                        </select>
+                    </div>
+                    <div class=" mb-3">
                         <select class="form-select" id="room">
-                            <option selected>Rooms</option>
+                            <option selected  value="">Rooms</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3+</option>
@@ -48,11 +60,29 @@
 
         const page_obj = {page:1}
 
+
+        $('#region').focus(function (){
+            if($(this).children().length <= 1){
+                get_regions_fetch()
+            }
+        })
+        $('#city').focus(function (){
+            get_cities_fetch()
+        })
+
+
+
+        $('#region').change(function (){
+            page_obj.region = $(this).val();
+        })
         $('#city').change(function (){
             page_obj.city = $(this).val();
         })
         $('#type').change(function (){
             page_obj.type_real_estate = $(this).val();
+        })
+        $('#service_type').change(function (){
+            page_obj.service_type = $(this).val();
         })
         $('#room').change(function (){
             page_obj.rooms = $(this).val();
@@ -76,6 +106,64 @@
                 link += `${obj}=${page_obj[obj]}&`
             }
             window.location = window.location.origin+"/catalog/"+link
+        }
+
+
+        const get_regions_fetch = () => {
+            $.ajax({
+                url: urls.get_regions,
+                type: 'GET',
+                beforeSend: function(xhr, settings) {
+                    if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    }
+                },
+                success: function(response){
+                    $('#region').empty()
+                    $('#region').append('<option selected  value="">Region</option>')
+                    response.forEach(val=>{
+                        $('#region').append(`<option value="${val.normalized_name}">${val.name}</option>`)
+                    })
+                },
+            });
+        }
+
+        const get_cities_fetch = () => {
+            if($('#region').val()){
+                $.ajax({
+                    url: urls.get_cities+"?reg="+$('#region').val(),
+                    type: 'GET',
+                    beforeSend: function(xhr, settings) {
+                        if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                        }
+                    },
+                    success: function(response){
+                        $('#city').empty()
+                        $('#city').append('<option selected  value="">City</option>')
+                        response.forEach(val=>{
+                            $('#city').append(`<option value="${val.normalized_name}">${val.name}</option>`)
+                        })
+                    },
+                });
+            }
+        }
+
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
         }
 
     })

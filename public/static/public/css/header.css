@@ -299,3 +299,13 @@ a, a:hover {
     padding: 0 !important;
     width: auto !important;
 }
+
+
+main{
+    padding: 10rem 0;
+}
+.bg-light .site-logo a,
+.bg-light header .site-menu a,
+.bg-light .gamburger a{
+    color: black !important;
+}

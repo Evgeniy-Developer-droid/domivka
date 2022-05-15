@@ -10,11 +10,11 @@
             <li><a href="{% url 'catalog' %}"><span>Catalog</span></a></li>
             <li><a href="{% url 'home' %}"><span>Contact us</span></a></li>
             {% if user.is_authenticated %}
-                <li><a href="{% url 'home' %}"><span>Dashboard</span></a></li>
-                <li><a href="{% url 'home' %}"><span>Sign out</span></a></li>
+                <li><a href="{% url 'dashboard' %}"><span>Dashboard</span></a></li>
+                <li><a href="{% url 'sign-out' %}"><span>Sign out</span></a></li>
             {% else %}
-                <li><a href="{% url 'home' %}"><span>Sign in</span></a></li>
-                <li><a href="{% url 'home' %}"><span>Sign up</span></a></li>
+                <li><a href="{% url 'sign-in' %}"><span>Sign in</span></a></li>
+                <li><a href="{% url 'sign-up' %}"><span>Sign up</span></a></li>
             {% endif %}
         </ul>
     </div>
@@ -32,11 +32,11 @@
                         <li><a href="{% url 'catalog' %}"><span>Catalog</span></a></li>
                         <li><a href="{% url 'home' %}"><span>Contact us</span></a></li>
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'home' %}"><span>Dashboard</span></a></li>
-                            <li><a href="{% url 'home' %}"><span>Sign out</span></a></li>
+                            <li><a href="{% url 'dashboard' %}"><span>Dashboard</span></a></li>
+                            <li><a href="{% url 'sign-out' %}"><span>Sign out</span></a></li>
                         {% else %}
-                            <li><a href="{% url 'home' %}"><span>Sign in</span></a></li>
-                            <li><a href="{% url 'home' %}"><span>Sign up</span></a></li>
+                            <li><a href="{% url 'sign-in' %}"><span>Sign in</span></a></li>
+                            <li><a href="{% url 'sign-up' %}"><span>Sign up</span></a></li>
                         {% endif %}
                     </ul>
                 </nav>

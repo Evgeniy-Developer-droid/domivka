@@ -13,10 +13,12 @@ jQuery(document).ready(function ($) {
         let url = new URL(window.location.href);
         if(url.searchParams.get("page")){page_obj.page = url.searchParams.get("page")}
         if(url.searchParams.get("city")){page_obj.city = url.searchParams.get("city")}
+        if(url.searchParams.get("region")){page_obj.region = url.searchParams.get("region")}
         if(url.searchParams.get("type_real_estate")){page_obj.type_real_estate = url.searchParams.get("type_real_estate")}
         if(url.searchParams.get("rooms")){page_obj.rooms = url.searchParams.get("rooms")}
         if(url.searchParams.get("price_min")){page_obj.price_min = url.searchParams.get("price_min")}
         if(url.searchParams.get("price_max")){page_obj.price_max = url.searchParams.get("price_max")}
+        if(url.searchParams.get("service_type")){page_obj.service_type = url.searchParams.get("service_type")}
     }
 
     const redirect = () => {
@@ -120,7 +122,11 @@ jQuery(document).ready(function ($) {
                                     <a href="${val.url}" class="btn btn-outline-light">View</a></div>
                                 <div class="other">
                                     <span class="text-light">${val.city}</span>
-                                    <span class="badge rounded-pill text-bg-success">${val.type_real_estate}</span>
+                                    <div>
+                                        <span class="badge rounded-pill text-bg-success">${val.type_real_estate}</span>
+                                        <span class="badge rounded-pill text-bg-info">${val.service_type}</span>
+                                        <span title="rooms" class="badge rounded-pill text-bg-danger"><i class="bi bi-house-fill"></i>${val.rooms}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +157,6 @@ jQuery(document).ready(function ($) {
 
     page_obj_init()
     render()
-    console.log(page_obj)
 
     function getCookie(name) {
         let cookieValue = null;
