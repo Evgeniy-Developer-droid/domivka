@@ -14,10 +14,12 @@
         }
     </script>
 </head>
-<body class="text-center bg-light">
+<body class="bg-light">
 {% include 'public/pieces/header.html' %}
-<main class=" ">
-
+<main class="text-center">
+    <div class="container">
+        <div class="alert alert-info">{{ content }}</div>
+    </div>
 </main>
 <script src="{% static 'public/js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'public/js/jquery.sticky.js' %}"></script>

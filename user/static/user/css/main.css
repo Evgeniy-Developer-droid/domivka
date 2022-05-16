@@ -1,0 +1,9 @@
+.form-custom{
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.thumbnail-wrap{
+    width: 25%;
+}

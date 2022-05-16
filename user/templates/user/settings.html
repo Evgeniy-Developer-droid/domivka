@@ -16,29 +16,25 @@
     </script>
 </head>
 <body class="bg-light">
-{% include 'public/pieces/header.html' %}
-<main class="text-center">
+{% include 'user/pieces/header-user.html' %}
+
+<main class="">
     <div class="container">
-        {% if validlink %}
-            <form action="" method="post" class="form-custom">
-                <h3>Reset password</h3>
-                <p>Please enter (and confirm) your new password.</p>
-                {% csrf_token %}
-                {% if error %} <div class="alert alert-warning" role="alert">
-                    {{ error }}
-                </div> {% endif %}
-                <div class="mb-3">
-                    {{ form.password1 }}
+        <div class="row">
+            <div class="col">
+                <div class="card p-3">
+                    <form action="" method="post">
+                        {% if message %}
+                            <div class="alert alert-success text-center">{{ message }}</div>
+                        {% endif %}
+                        {% csrf_token %}
+                    {{ form_profile.action }}
+                        <div class="mb-3">{{ form_profile.phone }}</div>
+                            <button class="btn btn-primary mb-3">Update</button>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    {{ form.password2 }}
-                </div>
-                <button role="submit" class="btn btn-primary btn-lg w-100">Change my password</button>
-            </form>
-        {% else %}
-            <h3>Password reset failed</h3>
-            <p>The password reset link was invalid, possibly because it has already been used. Please request a new password reset.</p>
-        {% endif %}
+            </div>
+        </div>
     </div>
 </main>
 <script src="{% static 'public/js/jquery-3.6.0.min.js' %}"></script>

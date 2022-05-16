@@ -8,10 +8,15 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.urls import reverse_lazy
+
+from public.models import RealEstate
+from public.tools.functions import create_real_estate
+from user.models import Profile
 from user.token import account_activation_token
 from django.core.mail import EmailMessage
 
-from user.forms import LoginForm, SignUpForm, ResetPasswordForm, EmailForm
+from user.forms import LoginForm, SignUpForm, ResetPasswordForm, EmailForm, RealEstateForm, ProfileForm
 
 
 def sign_out(request):
@@ -25,11 +30,10 @@ def sign_in(request):
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(username=cd['username'], password=cd['password'])
-            print("error", form.errors)
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect('dashboard')
+                    return redirect(request.POST.get('next', 'dashboard'))
                 else:
                     return render(request, 'user/login.html', {'form': form, "title": "Login",
                                                                  'error': "Disabled account"})
@@ -94,9 +98,69 @@ def activate(request, uidb64, token):
                       {'content': 'Activation link is invalid!'})
 
 
-@login_required
+@login_required(login_url=reverse_lazy('sign-in'))
 def dashboard(request):
-    return render(request, 'user/dashboard.html', {})
+    estates = RealEstate.objects.filter(user=request.user)
+    return render(request, 'user/dashboard.html', {'title': "Dashboard", 'items': estates})
+
+
+@login_required(login_url=reverse_lazy('sign-in'))
+def settings(request):
+    try:
+        instance = Profile.objects.get(user=request.user)
+        form_profile = ProfileForm(request.POST or None, instance=instance)
+        if request.method == 'POST':
+            if request.POST.get('action', "") == "profile":
+                if form_profile.is_valid():
+                    form_profile.save()
+                    return render(request, 'user/settings.html', {'title': "Settings",
+                                                                  'form_profile': form_profile,
+                                                                  'message': "Phone has been updated"})
+        return render(request, 'user/settings.html', {'title': "Settings", 'form_profile': form_profile})
+    except Profile.DoesNotExist:
+        return render(request, 'user/info.html',
+                      {'content': 'Settings not found'})
+
+
+@login_required(login_url=reverse_lazy('sign-in'))
+def delete_real_estate(request, pk):
+    try:
+        instance = RealEstate.objects.get(pk=pk, user=request.user)
+        instance.delete()
+        return redirect('dashboard')
+    except RealEstate.DoesNotExist:
+        return render(request, 'user/info.html',
+                      {'content': 'Real Estate not found or You are not the owner'})
+
+
+@login_required(login_url=reverse_lazy('sign-in'))
+def update_real_estate(request, pk):
+    try:
+        instance = RealEstate.objects.get(pk=pk, user=request.user)
+        form = RealEstateForm(request.POST or None, instance=instance)
+        if form.is_valid():
+            instance = form.save()
+            instance.refresh_from_db()
+            if 'thumbnail' in request.FILES:
+                instance.thumbnail = request.FILES['thumbnail']
+                instance.save()
+            return redirect('dashboard')
+        return render(request, 'user/edit.html', {'form': form})
+    except RealEstate.DoesNotExist:
+        return render(request, 'user/info.html',
+                      {'content': 'Real Estate not found or You are not the owner'})
+
+
+@login_required(login_url=reverse_lazy('sign-in'))
+def new_real_estate(request):
+    if request.method == 'POST':
+        form = RealEstateForm(request.POST)
+        result = create_real_estate(request, form)
+        if result['type'] == 'success':
+            return redirect('dashboard')
+        return render(request, 'user/new.html', {'title': "New Real Estate", 'error': result['message'], 'form': form})
+    form = RealEstateForm()
+    return render(request, 'user/new.html', {'title': "New Real Estate", 'form': form})
 
 
 def password_reset(request):

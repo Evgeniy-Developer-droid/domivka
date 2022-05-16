@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'public/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'public/css/bootstrap-utilities.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'public/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'user/css/main.css' %}">
+    <script>
+        const urls = {
+            get_regions: "{% url 'api-get-regions' %}",
+            get_cities: "{% url 'api-get-cities' %}"
+        }
+    </script>
+</head>
+<body class="bg-light">
+{% include 'user/pieces/header-user.html' %}
+<main class="">
+    <div class="container">
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <form action="" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ form.city }}
+            {{ form.region }}
+            <div class="mb-3">{{ form.thumbnail }}</div>
+            <div class="mb-3"><label for="{{ form.address.id_for_label }}">Address</label>{{ form.address }}</div>
+            <div class="row">
+                <div class="mb-3 col"><label for="{{ form.price.id_for_label }}">Price</label>{{ form.price }}</div>
+                <div class="mb-3 col"><label for="{{ form.rooms.id_for_label }}">Rooms</label>{{ form.rooms }}</div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col"><label for="{{ form.region_code.id_for_label }}">Region</label>{{ form.region_code }}</div>
+                <div class="mb-3 col"><label for="{{ form.city_code.id_for_label }}">City</label>{{ form.city_code }}</div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col"><label for="{{ form.type_real_estate.id_for_label }}">Type real estate</label>{{ form.type_real_estate }}</div>
+                <div class="mb-3 col"><label for="{{ form.service_type.id_for_label }}">Service type</label>{{ form.service_type }}</div>
+            </div>
+
+            <div class="mb-3"><label for="{{ form.description.id_for_label }}">Description</label>{{ form.description }}</div>
+            <button type="submit" class="btn btn-lg btn-primary">Create</button>
+        </form>
+    </div>
+</main>
+<script src="{% static 'public/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'public/js/jquery.sticky.js' %}"></script>
+<script src="{% static 'public/js/header.js' %}"></script>
+<script src="{% static 'user/js/new.js' %}"></script>
+</body>
+</html>
