@@ -4,13 +4,13 @@ from django.db import models
 
 class RealEstate(models.Model):
     TYPE_REAL_ESTATE = (
-        ('house', 'House'),
-        ('apartment', 'Apartment'),
-        ('office', 'Office'),
+        ('house', 'Дім'),
+        ('apartment', 'Квартира'),
+        ('office', 'Офіс'),
     )
     SERVICE_TYPE = (
-        ('sale', 'Sale'),
-        ('rent', 'Rent'),
+        ('sale', 'Продаж'),
+        ('rent', 'Оренда'),
     )
     timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -55,3 +55,10 @@ class City(models.Model):
 
     def __str__(self):
         return self.name+" - "+self.region
+
+
+class Report(models.Model):
+    name = models.CharField(max_length=255, default="")
+    email = models.EmailField(max_length=255, default="")
+    text = models.TextField()
+    

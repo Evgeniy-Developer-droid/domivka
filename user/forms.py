@@ -8,14 +8,14 @@ from user.models import Profile
 
 class ResetPasswordForm(forms.Form):
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form-control', 'placeholder': 'Password'}))
+        'class': 'form-control', 'placeholder': 'Пароль'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form-control', 'placeholder': 'Repeat Password'}))
+        'class': 'form-control', 'placeholder': 'Повторіть пароль'}))
 
 
 class EmailForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={
-        'class': 'form-control', 'placeholder': 'Email', 'autocomplete': 'off'}))
+        'class': 'form-control', 'placeholder': 'Електронна пошта', 'autocomplete': 'off'}))
 
 
 class LoginForm(forms.Form):
@@ -34,8 +34,8 @@ class SignUpForm(UserCreationForm):
 
 
 class RealEstateForm(forms.ModelForm):
-    CITY = (('', 'City'),)
-    Region = (('', 'Region'),)
+    CITY = (('', 'Місто'),)
+    Region = (('', 'Область'),)
     city = forms.CharField(widget=forms.HiddenInput())
     city_code = forms.CharField(widget=forms.Select(attrs={'id': 'city'}, choices=CITY))
     region = forms.CharField(widget=forms.HiddenInput())

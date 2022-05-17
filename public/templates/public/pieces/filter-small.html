@@ -3,53 +3,53 @@
         <div class="modal-content rounded-4 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
                 {#        <h5 class="modal-title">Modal title</h5>#}
-                <h2 class="fw-bold mb-0">Search Real Estate</h2>
+                <h2 class="fw-bold mb-0">Пошук нерухомості</h2>
             </div>
 
             <div class="modal-body p-5 pt-0">
                 <form class="">
                     <div class=" mb-3">
                         <select class="form-select" id="region">
-                            <option selected  value="">Region</option>
+                            <option selected  value="">Область</option>
                         </select>
                     </div>
                     <div class=" mb-3">
                         <select class="form-select" id="city">
-                            <option selected  value="">City</option>
+                            <option selected  value="">Місто</option>
                         </select>
                     </div>
                     <div class=" mb-3">
                         <select class="form-select" id="type">
-                            <option selected  value="">Type</option>
-                            <option value="house">House</option>
-                            <option value="apartment">Apartment</option>
-                            <option value="office">Office</option>
+                            <option selected  value="">Тип</option>
+                            <option value="house">Дім</option>
+                            <option value="apartment">Квартира</option>
+                            <option value="office">Офіс</option>
                         </select>
                     </div>
                     <div class=" mb-3">
                         <select class="form-select" id="service_type">
-                            <option selected value="">Service Type</option>
-                            <option value="sale">Sale</option>
-                            <option value="rent">Rent</option>
+                            <option selected value="">Тип сервісу</option>
+                            <option value="sale">Продаж</option>
+                            <option value="rent">Оренда</option>
                         </select>
                     </div>
                     <div class=" mb-3">
                         <select class="form-select" id="room">
-                            <option selected  value="">Rooms</option>
+                            <option selected  value="">Кімнати</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3+</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <input type="number" class="form-control rounded-3" id="price-min" placeholder="Price Min"
+                        <input type="number" class="form-control rounded-3" id="price-min" placeholder="Ціна мін"
                                autocomplete="off">
                     </div>
                     <div class="mb-3">
-                        <input type="number" class="form-control rounded-3" id="price-max" placeholder="Price Max"
+                        <input type="number" class="form-control rounded-3" id="price-max" placeholder="Ціна макс"
                                autocomplete="off">
                     </div>
-                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Search</button>
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Пошук</button>
                 </form>
             </div>
         </div>
@@ -120,7 +120,7 @@
                 },
                 success: function(response){
                     $('#region').empty()
-                    $('#region').append('<option selected  value="">Region</option>')
+                    $('#region').append('<option selected  value="">Область</option>')
                     response.forEach(val=>{
                         $('#region').append(`<option value="${val.normalized_name}">${val.name}</option>`)
                     })
@@ -140,7 +140,7 @@
                     },
                     success: function(response){
                         $('#city').empty()
-                        $('#city').append('<option selected  value="">City</option>')
+                        $('#city').append('<option selected  value="">Місто</option>')
                         response.forEach(val=>{
                             $('#city').append(`<option value="${val.normalized_name}">${val.name}</option>`)
                         })

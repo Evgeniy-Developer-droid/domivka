@@ -1,13 +1,37 @@
 from django.shortcuts import render
 
+from public.forms import ContactUsForm
+from public.models import RealEstate, RealEstateImage, Report
+
 
 def home(request):
-    return render(request, 'public/home.html', {"title": "Home"})
+    return render(request, 'public/home.html', {"title": "Головна сторінка"})
 
 
 def catalog(request):
-    return render(request, 'public/catalog.html', {"title": "Catalog"})
+    return render(request, 'public/catalog.html', {"title": "Каталог"})
+
+
+def contact_us(request):
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data.get('name', '')
+            email = form.cleaned_data.get('email', '')
+            text = form.cleaned_data.get('text', '')
+            Report(name=name, email=email, text=text).save()
+            return render(request, 'public/contact_us.html', {"saved": True, "title": "Зв'яжіться з нами"})
+    form = ContactUsForm()
+    return render(request, 'public/contact_us.html', {'form': form, "title": "Зв'яжіться з нами"})
 
 
 def real_estate(request, pk):
-    return render(request, 'public/home.html', {"title": "Real estate"})
+    try:
+        instance = RealEstate.objects.get(pk=pk)
+        if request.user.pk != instance.user.pk:
+            instance.viewed += 1
+            instance.save()
+        images = RealEstateImage.objects.filter(real_estate=instance.pk)
+        return render(request, 'public/single.html', {"title": "Нерухомість", "item": instance, "images":images})
+    except RealEstate.DoesNotExist:
+        return render(request, 'user/info.html', {"title": "Помилка", "content": "Нерухомість не знайдено"})

@@ -35,14 +35,14 @@ def sign_in(request):
                     login(request, user)
                     return redirect(request.POST.get('next', 'dashboard'))
                 else:
-                    return render(request, 'user/login.html', {'form': form, "title": "Login",
-                                                                 'error': "Disabled account"})
+                    return render(request, 'user/login.html', {'form': form, "title": "Вхід",
+                                                                 'error': "Аккаунт відключений"})
             else:
-                return render(request, 'user/login.html', {'form': form, "title": "Login",
-                                                             'error': "Invalid login or password"})
+                return render(request, 'user/login.html', {'form': form, "title": "Вхід",
+                                                             'error': "Неправильний логін або пароль"})
     else:
         form = LoginForm()
-    return render(request, 'user/login.html', {'form': form, "title": "Login"})
+    return render(request, 'user/login.html', {'form': form, "title": "Вхід"})
 
 
 def sign_up(request):
@@ -56,7 +56,7 @@ def sign_up(request):
                 user.is_active = False
                 user.save()
                 current_site = get_current_site(request)
-                mail_subject = 'Activation link has been sent to your email id'
+                mail_subject = 'Посилання для активації надіслано на вашу електронну адресу'
                 message = render_to_string('user/emails/acc_active_email.html', {
                     'user': user,
                     'domain': current_site.domain,
@@ -69,8 +69,8 @@ def sign_up(request):
                     mail_subject, message, to=[to_email]
                 )
                 email.send()
-                return render(request, 'user/info.html', {
-                    'content': 'Please confirm your email address to complete the registration'})
+                return render(request, 'user/info.html', {"title": "Раєстрація",
+                    'content': 'Підтвердьте свою електронну адресу, щоб завершити реєстрацію'})
             else:
                 user.save()
                 raw_password = form.cleaned_data.get('password1')
@@ -79,7 +79,7 @@ def sign_up(request):
                 return redirect('dashboard')
     else:
         form = SignUpForm()
-    return render(request, 'user/signup.html', {'form': form, "title": "Register"})
+    return render(request, 'user/signup.html', {'form': form, "title": "Раєстрація"})
 
 
 def activate(request, uidb64, token):
@@ -92,20 +92,20 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         return render(request, 'user/info.html',
-                      {'content': 'Thank you for your email confirmation. Now you can login your account.'})
+                      {'title': "Інформація", 'content': 'Дякуємо за підтвердження електронною поштою. Тепер ви можете увійти в обліковий запис.'})
     else:
         return render(request, 'user/info.html',
-                      {'content': 'Activation link is invalid!'})
+                      {'title': "Інформація", 'content': 'Посилання для активації недійсне!'})
 
 
 @login_required(login_url=reverse_lazy('sign-in'))
 def dashboard(request):
     estates = RealEstate.objects.filter(user=request.user)
-    return render(request, 'user/dashboard.html', {'title': "Dashboard", 'items': estates})
+    return render(request, 'user/dashboard.html', {'title': "Моя сторінка", 'items': estates})
 
 
 @login_required(login_url=reverse_lazy('sign-in'))
-def settings(request):
+def settings_(request):
     try:
         instance = Profile.objects.get(user=request.user)
         form_profile = ProfileForm(request.POST or None, instance=instance)
@@ -113,13 +113,13 @@ def settings(request):
             if request.POST.get('action', "") == "profile":
                 if form_profile.is_valid():
                     form_profile.save()
-                    return render(request, 'user/settings.html', {'title': "Settings",
+                    return render(request, 'user/settings.html', {'title': "Налаштування",
                                                                   'form_profile': form_profile,
-                                                                  'message': "Phone has been updated"})
-        return render(request, 'user/settings.html', {'title': "Settings", 'form_profile': form_profile})
+                                                                  'message': "Номер телефону оновлено"})
+        return render(request, 'user/settings.html', {'title': "Налаштування", 'form_profile': form_profile})
     except Profile.DoesNotExist:
         return render(request, 'user/info.html',
-                      {'content': 'Settings not found'})
+                      {'title': "Помилка", 'content': 'Налаштування не знайдено'})
 
 
 @login_required(login_url=reverse_lazy('sign-in'))
@@ -130,7 +130,7 @@ def delete_real_estate(request, pk):
         return redirect('dashboard')
     except RealEstate.DoesNotExist:
         return render(request, 'user/info.html',
-                      {'content': 'Real Estate not found or You are not the owner'})
+                      {'title': "Помилка", 'content': 'Нерухомість не знайдено або Ви не власник'})
 
 
 @login_required(login_url=reverse_lazy('sign-in'))
@@ -145,10 +145,10 @@ def update_real_estate(request, pk):
                 instance.thumbnail = request.FILES['thumbnail']
                 instance.save()
             return redirect('dashboard')
-        return render(request, 'user/edit.html', {'form': form})
+        return render(request, 'user/edit.html', {'title': "Оновлення", 'form': form})
     except RealEstate.DoesNotExist:
         return render(request, 'user/info.html',
-                      {'content': 'Real Estate not found or You are not the owner'})
+                      {'title': "Помилка", 'content': 'Нерухомість не знайдено або Ви не власник'})
 
 
 @login_required(login_url=reverse_lazy('sign-in'))
@@ -158,9 +158,9 @@ def new_real_estate(request):
         result = create_real_estate(request, form)
         if result['type'] == 'success':
             return redirect('dashboard')
-        return render(request, 'user/new.html', {'title': "New Real Estate", 'error': result['message'], 'form': form})
+        return render(request, 'user/new.html', {'title': "Нова нерухомість", 'error': result['message'], 'form': form})
     form = RealEstateForm()
-    return render(request, 'user/new.html', {'title': "New Real Estate", 'form': form})
+    return render(request, 'user/new.html', {'title': "Нова нерухомість", 'form': form})
 
 
 def password_reset(request):
@@ -169,7 +169,7 @@ def password_reset(request):
         if form.is_valid():
             if settings.EMAIL_CONFIRM:
                 current_site = get_current_site(request)
-                mail_subject = 'Activation link has been sent to your email id'
+                mail_subject = 'Посилання для активації надіслано на вашу електронну адресу'
                 try:
                     user = User.objects.get(email=form.cleaned_data.get('email'))
                     message = render_to_string('user/emails/password_reset_email.html', {
@@ -187,18 +187,18 @@ def password_reset(request):
                 except User.DoesNotExist:
                     form = EmailForm()
                     return render(request, 'user/password_reset_form.html',
-                                  {"title": "Change password", 'form': form,
-                                   'error': 'User with this email not found!'})
+                                  {"title": "Помилка", 'form': form,
+                                   'error': 'Користувача з цією електронною поштою не знайдено!'})
     form = EmailForm()
-    return render(request, 'user/password_reset_form.html', {"title": "Change password", 'form': form})
+    return render(request, 'user/password_reset_form.html', {"title": "Змінити пароль", 'form': form})
 
 
 def password_reset_done(request):
-    return render(request, 'user/password_reset_done.html', {"title": "Done"})
+    return render(request, 'user/password_reset_done.html', {"title": "Готово"})
 
 
 def password_reset_complete(request):
-    return render(request, 'user/password_reset_complete.html', {"title": "Done"})
+    return render(request, 'user/password_reset_complete.html', {"title": "Готово"})
 
 
 def password_reset_confirm(request, uidb64, token):
@@ -220,12 +220,12 @@ def password_reset_confirm(request, uidb64, token):
                     user.save()
                     return redirect('password-reset-complete')
                 else:
-                    error = "Password not same"
+                    error = "Пароль не той"
         form = ResetPasswordForm()
         return render(request, 'user/password_reset_confirm.html', {
                                                                     'form': form,
                                                                     'error': error,
                                                                     'validlink': True,
-                                                                    "title": "Confirm"})
+                                                                    "title": "Підтвердьте"})
     else:
-        return render(request, 'user/password_reset_confirm.html', {"title": "Confirm"})
+        return render(request, 'user/password_reset_confirm.html', {"title": "Підтвердьте"})

@@ -19,35 +19,35 @@
 {% include 'public/pieces/header.html' %}
 <main class="text-center">
     <div class="container">
-        <h2>Sign up</h2>
+        <h2>Реєстрація</h2>
     <form action="." method="post" autocomplete="off" class="form-custom">
         {% csrf_token %}
 
         <div class="input-group mb-3">
-            <input placeholder="Username" class="form-control" type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
+            <input placeholder="Нікнейм" class="form-control" type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
         </div>
 
         <div class="input-group mb-3">
-            <input placeholder="First name" class="form-control" type="text" name="first_name" maxlength="30" id="id_first_name">
+            <input placeholder="Ім'я" class="form-control" type="text" name="first_name" maxlength="30" id="id_first_name">
         </div>
 
         <div class="input-group mb-3">
-            <input placeholder="Last name" class="form-control" type="text" name="last_name" maxlength="30" id="id_last_name">
+            <input placeholder="Прізвище" class="form-control" type="text" name="last_name" maxlength="30" id="id_last_name">
         </div>
 
         <div class="input-group mb-3">
-            <input placeholder="Email" class="form-control" type="email" name="email" maxlength="254" required="" id="id_email">
+            <input placeholder="Електронна пошта" class="form-control" type="email" name="email" maxlength="254" required="" id="id_email">
         </div>
 
         <div class="input-group mb-3">
-            <input placeholder="Password" class="form-control" type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
+            <input placeholder="Пароль" class="form-control" type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
         </div>
 
         <div class="input-group mb-3">
-            <input placeholder="Password confirmation" class="form-control" type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
+            <input placeholder="Підтвердження паролю" class="form-control" type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
         </div>
 
-        <button class="w-100 btn-lg btn btn-primary" type="submit">Sign up</button>
+        <button class="w-100 btn-lg btn btn-primary" type="submit">Зареєструватися</button>
     </form>
     </div>
 </main>

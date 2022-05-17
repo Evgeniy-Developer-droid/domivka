@@ -6,15 +6,15 @@
     </div>
     <div class="site-mobile-menu-body">
         <ul class="site-nav-wrap">
-            <li><a href="{% url 'home' %}"><span>Home</span></a></li>
-            <li><a href="{% url 'catalog' %}"><span>Catalog</span></a></li>
-            <li><a href="{% url 'home' %}"><span>Contact us</span></a></li>
+            <li><a href="{% url 'home' %}"><span>Головна</span></a></li>
+            <li><a href="{% url 'catalog' %}"><span>Каталог</span></a></li>
+            <li><a href="{% url 'contact_us' %}"><span>Зворотній зв'язок</span></a></li>
             {% if user.is_authenticated %}
-                <li><a href="{% url 'dashboard' %}"><span>Dashboard</span></a></li>
-                <li><a href="{% url 'sign-out' %}"><span>Sign out</span></a></li>
+                <li><a href="{% url 'dashboard' %}"><span>Моя сторінка</span></a></li>
+                <li><a href="{% url 'sign-out' %}"><span>Вийти</span></a></li>
             {% else %}
-                <li><a href="{% url 'sign-in' %}"><span>Sign in</span></a></li>
-                <li><a href="{% url 'sign-up' %}"><span>Sign up</span></a></li>
+                <li><a href="{% url 'sign-in' %}"><span>Вхід</span></a></li>
+                <li><a href="{% url 'sign-up' %}"><span>Реєстрація</span></a></li>
             {% endif %}
         </ul>
     </div>
@@ -28,15 +28,15 @@
             <div class="col-12 col-md-10 d-none d-xl-block">
                 <nav class="site-navigation position-relative text-right" role="navigation">
                     <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-                        <li><a href="{% url 'home' %}"><span>Home</span></a></li>
-                        <li><a href="{% url 'catalog' %}"><span>Catalog</span></a></li>
-                        <li><a href="{% url 'home' %}"><span>Contact us</span></a></li>
+                        <li><a href="{% url 'home' %}"><span>Головна</span></a></li>
+                        <li><a href="{% url 'catalog' %}"><span>Каталог</span></a></li>
+                        <li><a href="{% url 'contact_us' %}"><span>Зворотній зв'язок</span></a></li>
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'dashboard' %}"><span>Dashboard</span></a></li>
-                            <li><a href="{% url 'sign-out' %}"><span>Sign out</span></a></li>
+                            <li><a href="{% url 'dashboard' %}"><span>Моя сторінка</span></a></li>
+                            <li><a href="{% url 'sign-out' %}"><span>Вийти</span></a></li>
                         {% else %}
-                            <li><a href="{% url 'sign-in' %}"><span>Sign in</span></a></li>
-                            <li><a href="{% url 'sign-up' %}"><span>Sign up</span></a></li>
+                            <li><a href="{% url 'sign-in' %}"><span>Вхід</span></a></li>
+                            <li><a href="{% url 'sign-up' %}"><span>Реєстрація</span></a></li>
                         {% endif %}
                     </ul>
                 </nav>

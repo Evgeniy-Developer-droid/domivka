@@ -4,11 +4,11 @@ jQuery(document).ready(function ($) {
         return `<div class="toast-container position-absolute bottom-0 end-0 p-3">
                   <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header">
-                      <strong class="me-auto">Are you sure?</strong>
+                      <strong class="me-auto">Ви впевнені?</strong>
                       <button type="button" class="btn-close btn-delete-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
                     <div class="toast-body">
-                      <a class="btn btn-outline-danger btn-sm" href="${link}">Delete</a>
+                      <a class="btn btn-outline-danger btn-sm" href="${link}">Видалити</a>
                     </div>
                   </div>
                 </div>`

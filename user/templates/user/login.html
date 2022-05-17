@@ -22,26 +22,26 @@
         <form action="." method="post" autocomplete="off" class="form-custom">
             {% csrf_token %}
             <input type="hidden" id="url_redirect" name="next" value="{% url 'dashboard' %}">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 fw-normal">Вхід</h1>
             {% if error %}
                 <div class="alert alert-warning" role="alert" style="margin-top: 20px">
                     {{ error }}
                 </div>
             {% endif %}
             <div class="mb-3 input-group">
-                <input type="text" class="form-control" name="username" placeholder="Username" required="" id="id_username">
+                <input type="text" class="form-control" name="username" placeholder="Нікнейм" required="" id="id_username">
             </div>
             <div class="mb-3 input-group">
-                <input type="password" class="form-control" name="password" required="" id="id_password" placeholder="Password">
+                <input type="password" class="form-control" name="password" required="" id="id_password" placeholder="Пароль">
             </div>
 
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <input type="checkbox" value="remember-me"> Запам'ятати мене
                 </label>
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-            <p>Lost your password? <a href="{% url 'password-reset' %}">Reset password</a></p>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Увійти</button>
+            <p>Забули пароль? <a href="{% url 'password-reset' %}">Скинути пароль</a></p>
         </form>
     </div>
 </main>

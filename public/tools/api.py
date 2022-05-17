@@ -5,6 +5,16 @@ from django.templatetags.static import static
 from django.urls import reverse
 
 
+def phone_check(request):
+    try:
+        instance = RealEstate.objects.get(pk=request.POST.get('id'))
+        instance.viewed_phone += 1
+        instance.save()
+        return JsonResponse({'message':"ok"})
+    except RealEstate.DoesNotExist:
+        return JsonResponse({})
+
+
 def get_regions(request):
     regions = Region.objects.values()
     return JsonResponse(list(regions), safe=False)

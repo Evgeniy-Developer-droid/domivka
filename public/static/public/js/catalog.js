@@ -90,9 +90,9 @@ jQuery(document).ready(function ($) {
                             <nav aria-label="..."><ul class="pagination">${html_pag}</ul></nav>
                             <div class="d-flex">
                                 <button href="" class="btn btn-outline-dark m-2" id="prev_page"
-                                ${response.has_previous ? "" : "disabled"}>Prev page</button>
+                                ${response.has_previous ? "" : "disabled"}>Попередня</button>
                                 <button href="" class="btn btn-outline-dark m-2" id="next_page" 
-                                ${response.has_next ? "" : "disabled"}>Next page</button>
+                                ${response.has_next ? "" : "disabled"}>Наступна</button>
                             </div>
                         </div>
                     </div>`;
@@ -115,17 +115,19 @@ jQuery(document).ready(function ($) {
             success: function(response){
                 let html = ""
                 response.data.forEach(val=>{
+                    let type_r = val.type_real_estate === "house" ? "Дім" : val.type_real_estate === "office" ? "Офіс" : "Квартира"
+                    let type_s = val.service_type === "sale" ? "Продаж" : "Оренда"
                     html += `<div class="col-xs-12 col-sm-4">
                         <div class="card card-custom" style="background-image: url('${val.thumbnail}');">
                             <div class="card-data">
-                                <div class="d-flex py-3 justify-content-between"><p class="h4 text-light">${val.price} UAN<p/>
-                                    <a href="${val.url}" class="btn btn-outline-light">View</a></div>
+                                <div class="d-flex py-3 justify-content-between"><p class="h5 text-light">${val.price} грн<p/>
+                                    <a href="${val.url}" class="btn btn-sm btn-outline-light">Переглянути</a></div>
                                 <div class="other">
-                                    <span class="text-light">${val.city}</span>
+                                    <small class="text-light">${val.city}</small>
                                     <div>
-                                        <span class="badge rounded-pill text-bg-success">${val.type_real_estate}</span>
-                                        <span class="badge rounded-pill text-bg-info">${val.service_type}</span>
-                                        <span title="rooms" class="badge rounded-pill text-bg-danger"><i class="bi bi-house-fill"></i>${val.rooms}</span>
+                                        <span class="badge rounded-pill text-bg-success">${type_r}</span>
+                                        <span class="badge rounded-pill text-bg-info">${type_s}</span>
+                                        <span title="Кімнат" class="badge rounded-pill text-bg-danger"><i class="bi bi-house-fill"></i>${val.rooms}</span>
                                     </div>
                                 </div>
                             </div>

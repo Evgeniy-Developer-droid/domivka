@@ -22,22 +22,22 @@
 <main class="">
     <div class="container">
         {% if items.count == 0 %}
-            <div class="alert alert-secondary text-center">You don't have any real estates</div>
+            <div class="alert alert-secondary text-center">У вас немає нерухомості</div>
         {% endif %}
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for item in items %}
                 <div class="col position-relative">
                     <div class="card shadow-sm">
-                        <img src="{{ item.thumbnail.url }}" class="bd-placeholder-img card-img-top" alt="">
+                        <img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% endif %}" class="bd-placeholder-img card-img-top" alt="">
 
                         <div class="card-body">
                             <p class="card-text">{{ item.region }}, {{ item.city }}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group position-relative">
-                                    <a href="" class="btn btn-info btn-sm m-1">View</a>
-                                    <a href="{% url 'update-real-estate' item.pk %}" class="btn btn-warning btn-sm m-1">Edit</a>
+                                <div class="btn-group position-relative d-flex flex-wrap">
+                                    <a href="{% url 'real-estate' item.pk %}" class="btn btn-info btn-sm m-1">Переглянути</a>
+                                    <a href="{% url 'update-real-estate' item.pk %}" class="btn btn-warning btn-sm m-1">Редагувати</a>
                                     <a href="{% url 'delete-real-estate' item.pk %}"
-                                       class="btn btn-danger btn-sm m-1 delete-btn">Delete</a>
+                                       class="btn btn-danger btn-sm m-1 delete-btn">Видалити</a>
                                 </div>
                                 <div class="btn-group">
                                     <button class="btn btn-secondary btn-sm m-1 btn-details-open"><i class="bi bi-grid-3x3-gap-fill"></i></button>
@@ -46,24 +46,24 @@
                         </div>
                     </div>
                     <div class="info-details-wrap position-absolute rounded-4 p-3" style="display: none">
-                        <div class="head text-center position-relative"><p class="h4">Details</p>
+                        <div class="head text-center position-relative"><p class="h4">Деталі</p>
                             <button class="btn btn-close position-absolute top-0 btn-details-close" style="right: 0"></button></div>
                         <ol class="list-group list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
-                                    <div class="fw-bold"><i class="bi bi-calendar-day-fill  text-dark"></i> Created</div>
+                                    <div class="fw-bold"><i class="bi bi-calendar-day-fill  text-dark"></i> Створено</div>
                                 </div>
                                 <small class="">{{ item.timestamp }}</small>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
-                                    <div class="fw-bold"><i class="bi bi-eye-fill text-dark"></i> Viewed</div>
+                                    <div class="fw-bold"><i class="bi bi-eye-fill text-dark"></i> Переглядів</div>
                                 </div>
                                 <span class="badge bg-primary rounded-pill">{{ item.viewed }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
-                                    <div class="fw-bold"><i class="bi bi-telephone-fill  text-dark"></i> Viewed phone</div>
+                                    <div class="fw-bold"><i class="bi bi-telephone-fill  text-dark"></i> Переглядів телефона</div>
                                 </div>
                                 <span class="badge bg-danger rounded-pill">{{ item.viewed_phone }}</span>
                             </li>

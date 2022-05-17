@@ -31,7 +31,7 @@ jQuery(document).ready(function ($) {
             },
             success: function(response){
                 $('#region').empty()
-                $('#region').append('<option value="">Region</option>')
+                $('#region').append('<option value="">Область</option>')
                 response.forEach(val=>{
                     $('#region').append(`<option value="${val.normalized_name}">${val.name}</option>`)
                 })
@@ -51,7 +51,7 @@ jQuery(document).ready(function ($) {
                 },
                 success: function(response){
                     $('#city').empty()
-                    $('#city').append('<option value="">City</option>')
+                    $('#city').append('<option value="">Місто</option>')
                     response.forEach(val=>{
                         $('#city').append(`<option value="${val.normalized_name}">${val.name}</option>`)
                     })

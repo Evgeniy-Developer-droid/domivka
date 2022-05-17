@@ -9,4 +9,4 @@ def create_real_estate(request, form):
         instance.save()
         return {'message': "success", 'type': 'success'}
     print(request.FILES, form.errors)
-    return {'message': "Form isn`t valid", 'type': 'error'}
+    return {'message': "Невірні дані", 'type': 'error'}
