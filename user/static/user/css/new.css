@@ -1,0 +1,35 @@
+.card-custom{
+    width: 100px !important;
+    height: 100px !important;
+    margin: 1rem;
+    background-color: #46ff811c;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 2px dashed greenyellow;
+}
+.bth-delete{
+    background-color: red;
+}
+.btn-custom{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.bth-add{
+    border: 1px solid darkgreen;
+}
+.bth-add i{
+    color: #0c4128;
+    font-size: 2rem;
+}
+.bth-download{
+    border: 1px solid #57049b;
+}
+.bth-download i{
+    color: #2b0062;
+}

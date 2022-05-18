@@ -1,8 +1,22 @@
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-from public.models import RealEstate, Region, City
+from public.models import RealEstate, Region, City, RealEstateImage
 from django.templatetags.static import static
 from django.urls import reverse
+
+
+def upload_image(request):
+    if 'image' in request.FILES:
+        img = RealEstateImage(image=request.FILES.get('image'))
+        img.save()
+        response = {'id': img.pk, 'image': img.image.url}
+        return JsonResponse({'type': 'success', 'data': response})
+    return JsonResponse({'message': "no image", 'type': 'error'})
+
+
+def delete_image(request):
+    RealEstateImage.objects.get(id=request.POST.get('id')).delete()
+    return JsonResponse({'message':'ok'})
 
 
 def phone_check(request):

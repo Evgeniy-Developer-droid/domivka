@@ -17,4 +17,7 @@ urlpatterns = [
     path('api/get-regions', api.get_regions, name="api-get-regions"),
     path('api/get-cities', api.get_cities, name="api-get-cities"),
     path('api/phone-check', api.phone_check, name="api-phone-check"),
+
+    path('api/upload-image', api.upload_image, name="api-upload-image"),
+    path('api/delete-image', api.delete_image, name="api-delete-image"),
 ]

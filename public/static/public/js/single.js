@@ -38,6 +38,23 @@ jQuery(document).ready(function ($) {
   }
 
 
+  $('.th-custom').click(function (){
+    let url = $(this).data('url')
+    $('#myModal img').attr('src', url)
+    $('#myModal').fadeIn()
+  })
+
+  $('.close-b').click(function (){
+    $('#myModal').fadeOut()
+  })
+
+  // $('.th-custom').on('click', function() {
+  //   let url = $(this).data('url')
+  //   $('.imagepreview').attr('src', url);
+  //   $('#imagemodal').modal('show');
+  // });
+
+
 })
 
 
@@ -69,4 +86,5 @@ document.addEventListener( 'DOMContentLoaded', function () {
   main.sync( thumbnails );
   main.mount();
   thumbnails.mount();
+
 } );

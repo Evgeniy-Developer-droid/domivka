@@ -10,7 +10,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.urls import reverse_lazy
 
-from public.models import RealEstate
+from public.models import RealEstate, RealEstateImage
 from public.tools.functions import create_real_estate
 from user.models import Profile
 from user.token import account_activation_token
@@ -137,6 +137,7 @@ def delete_real_estate(request, pk):
 def update_real_estate(request, pk):
     try:
         instance = RealEstate.objects.get(pk=pk, user=request.user)
+        image_instances_view = RealEstateImage.objects.filter(real_estate=instance.pk)
         form = RealEstateForm(request.POST or None, instance=instance)
         if form.is_valid():
             instance = form.save()
@@ -144,8 +145,11 @@ def update_real_estate(request, pk):
             if 'thumbnail' in request.FILES:
                 instance.thumbnail = request.FILES['thumbnail']
                 instance.save()
+            images = [int(v) for k, v in request.POST.items() if k.startswith('img_')]
+            image_instances = RealEstateImage.objects.filter(pk__in=images)
+            image_instances.update(real_estate=instance)
             return redirect('dashboard')
-        return render(request, 'user/edit.html', {'title': "Оновлення", 'form': form})
+        return render(request, 'user/edit.html', {'title': "Оновлення", 'form': form, 'images': image_instances_view})
     except RealEstate.DoesNotExist:
         return render(request, 'user/info.html',
                       {'title': "Помилка", 'content': 'Нерухомість не знайдено або Ви не власник'})

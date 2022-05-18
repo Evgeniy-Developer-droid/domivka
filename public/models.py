@@ -32,7 +32,7 @@ class RealEstate(models.Model):
 class RealEstateImage(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='real_estate_images/')
-    real_estate = models.ForeignKey(RealEstate, on_delete=models.CASCADE)
+    real_estate = models.ForeignKey(RealEstate, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Region(models.Model):

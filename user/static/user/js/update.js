@@ -1,5 +1,4 @@
 jQuery(document).ready(function ($) {
-
     let images_wrap = `<div class="card-custom rounded-3 d-flex justify-content-center align-items-center">
                     <input type="file" accept="image/*" class="d-none addition-image">
                     <div class="bth-download btn-custom"><i class="bi bi-cloud-arrow-down-fill"></i></div>
@@ -59,10 +58,6 @@ jQuery(document).ready(function ($) {
             }
         });
     })
-
-
-
-
 
     $('#region').change(function (){
         $('#city').val('').change()

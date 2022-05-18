@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'public/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'public/css/single.css' %}">
     <link rel="stylesheet" href="{% static 'public/css/splide.min.css' %}">
+    <script src="{% static 'public/js/bootstrap.bundle.min.js' %}"></script>
     <script>
         const urls = {
             phone_check: "{% url "api-phone-check" %}"
@@ -27,13 +28,21 @@
                 <div class="splide__track">
                     <ul class="splide__list">
                         <li class="splide__slide">
-                            <img src="{{ item.thumbnail.url }}" alt="">
+                            <div class="th-custom" data-url="{{ item.thumbnail.url }}" style="background-image: url('{{ item.thumbnail.url }}')"></div>
                         </li>
                         {% for image in images %}
                             <li class="splide__slide">
-                                <img src="{{ image.image.url }}" alt="">
+                                <div class="th-custom" data-url="{{ image.image.url }}" style="background-image: url('{{ image.image.url }}')"></div>
                             </li>
                         {% endfor %}
+{#                        <li class="splide__slide">#}
+{#                            <img class="img-thumbnail" src="{{ item.thumbnail.url }}" alt="">#}
+{#                        </li>#}
+{#                        {% for image in images %}#}
+{#                            <li class="splide__slide">#}
+{#                                <img class="img-thumbnail" src="{{ image.image.url }}" alt="">#}
+{#                            </li>#}
+{#                        {% endfor %}#}
                     </ul>
                 </div>
             </section>
@@ -127,7 +136,18 @@
         </div>
     </div>
 </main>
+<!-- The Modal -->
+<div id="myModal" class="modal">
 
+  <!-- The Close Button -->
+  <button class="btn btn-close btn-lg bg-light close-b"></button>
+
+  <!-- Modal Content (The Image) -->
+  <img class="modal-content" id="img01">
+
+  <!-- Modal Caption (Image Text) -->
+  <div id="caption"></div>
+</div>
 
 <script src="{% static 'public/js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'public/js/jquery.sticky.js' %}"></script>
