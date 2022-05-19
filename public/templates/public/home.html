@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'public/css/bootstrap-utilities.min.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'public/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'user/css/main.css' %}">
     <style>
         .hero {
             height: 100vh;
@@ -17,7 +18,7 @@
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
-        }
+            }
 
         body:before {
             content: "";
@@ -42,9 +43,9 @@
         }
     </script>
 </head>
-<body>
+<body class="bg-light">
 {% include 'public/pieces/header.html' %}
-<div class="hero" style="background-image: url({% static 'public/img/back3.jpg' %})"></div>
+{#<div class="hero" style="background-image: url({% static 'public/img/back3.jpg' %})"></div>#}
 
 
 
