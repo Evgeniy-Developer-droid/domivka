@@ -38,7 +38,8 @@
             {% for item in items %}
                 <div class="col position-relative">
                     <div class="card shadow-sm">
-                        <img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% endif %}" class="bd-placeholder-img card-img-top" alt="">
+                        <div class="bd-placeholder-img card-img-top card-background-image" style="background-image: url('{% if item.thumbnail %}{{ item.thumbnail.url }}{% endif %}')"></div>
+{#                        <img src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% endif %}" class="bd-placeholder-img card-img-top" alt="">#}
 
                         <div class="card-body">
                             <p class="card-text">{{ item.region }}, {{ item.city }}</p>
