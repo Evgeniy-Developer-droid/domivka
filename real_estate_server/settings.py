@@ -8,6 +8,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "test-dev")
 DEBUG = bool(int(os.environ.get("DEBUG", default=1)))
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://*.domivka.org.ua', 'https://*.127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
