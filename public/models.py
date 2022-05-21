@@ -61,4 +61,9 @@ class Report(models.Model):
     name = models.CharField(max_length=255, default="")
     email = models.EmailField(max_length=255, default="")
     text = models.TextField()
-    
+
+
+class SEO(models.Model):
+    keywords = models.TextField(help_text="Set delimiter example: keyword1, keyword2,...")
+    description = models.TextField()
+    image = models.ImageField(upload_to='seo/', null=True, blank=True)

@@ -1,4 +1,4 @@
-from public.models import RealEstateImage
+from public.models import RealEstateImage, SEO
 
 
 def create_real_estate(request, form):
@@ -13,3 +13,13 @@ def create_real_estate(request, form):
         image_instances.update(real_estate=instance)
         return {'message': "success", 'type': 'success'}
     return {'message': "Невірні дані", 'type': 'error'}
+
+
+def get_seo():
+    result = {'keywords': "", 'description': "", 'image': ""}
+    instance = SEO.objects.all().first()
+    if instance:
+        result['keywords'] = instance.keywords
+        result['description'] = instance.description
+        result['image'] = instance.image.url if instance.image else ""
+    return result

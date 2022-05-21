@@ -8,6 +8,9 @@
         <ul class="site-nav-wrap">
             <li><a href="{% url 'home' %}"><span>Головна</span></a></li>
             <li><a href="{% url 'dashboard' %}"><span>Моя сторінка</span></a></li>
+            {% if user.is_superuser %}
+                <li><a href="{% url 'admin:index' %}"><span>Admin</span></a></li>
+            {% endif %}
             <li><a href="{% url 'new-real-estate' %}"><span>Новий</span></a></li>
             <li><a href="{% url 'settings' %}"><span>Налаштування</span></a></li>
             <li><a href="{% url 'sign-out' %}"><span>Вийти</span></a></li>
@@ -25,6 +28,9 @@
                     <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
                         <li><a href="{% url 'home' %}"><span>Головна</span></a></li>
                         <li><a href="{% url 'dashboard' %}"><span>Моя сторінка</span></a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="{% url 'admin:index' %}"><span>Admin</span></a></li>
+                        {% endif %}
                         <li><a href="{% url 'new-real-estate' %}"><span>Новий</span></a></li>
                         <li><a href="{% url 'settings' %}"><span>Налаштування</span></a></li>
                         <li><a href="{% url 'sign-out' %}"><span>Вийти</span></a></li>

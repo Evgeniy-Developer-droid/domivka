@@ -2,14 +2,15 @@ from django.shortcuts import render
 
 from public.forms import ContactUsForm
 from public.models import RealEstate, RealEstateImage, Report
+from public.tools.functions import get_seo
 
 
 def home(request):
-    return render(request, 'public/home.html', {"title": "Головна сторінка"})
+    return render(request, 'public/home.html', {"title": "Головна сторінка", 'seo': get_seo()})
 
 
 def catalog(request):
-    return render(request, 'public/catalog.html', {"title": "Каталог"})
+    return render(request, 'public/catalog.html', {"title": "Каталог", 'seo': get_seo()})
 
 
 def contact_us(request):
@@ -20,9 +21,9 @@ def contact_us(request):
             email = form.cleaned_data.get('email', '')
             text = form.cleaned_data.get('text', '')
             Report(name=name, email=email, text=text).save()
-            return render(request, 'public/contact_us.html', {"saved": True, "title": "Зв'яжіться з нами"})
+            return render(request, 'public/contact_us.html', {"saved": True, "title": "Зв'яжіться з нами", 'seo': get_seo()})
     form = ContactUsForm()
-    return render(request, 'public/contact_us.html', {'form': form, "title": "Зв'яжіться з нами"})
+    return render(request, 'public/contact_us.html', {'form': form, "title": "Зв'яжіться з нами", 'seo': get_seo()})
 
 
 def real_estate(request, pk):
@@ -32,6 +33,6 @@ def real_estate(request, pk):
             instance.viewed += 1
             instance.save()
         images = RealEstateImage.objects.filter(real_estate=instance.pk)
-        return render(request, 'public/single.html', {"title": "Нерухомість", "item": instance, "images":images})
+        return render(request, 'public/single.html', {"title": "Нерухомість", "item": instance, "images":images, 'seo': get_seo()})
     except RealEstate.DoesNotExist:
-        return render(request, 'user/info.html', {"title": "Помилка", "content": "Нерухомість не знайдено"})
+        return render(request, 'user/info.html', {"title": "Помилка", "content": "Нерухомість не знайдено", 'seo': get_seo()})
