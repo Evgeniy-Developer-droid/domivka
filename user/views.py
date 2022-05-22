@@ -115,7 +115,7 @@ def settings_(request):
                     form_profile.save()
                     return render(request, 'user/settings.html', {'title': "Налаштування",
                                                                   'form_profile': form_profile,
-                                                                  'message': "Номер телефону оновлено"})
+                                                                  'message': "Інформація оновлена"})
         return render(request, 'user/settings.html', {'title': "Налаштування", 'form_profile': form_profile})
     except Profile.DoesNotExist:
         return render(request, 'user/info.html',

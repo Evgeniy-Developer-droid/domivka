@@ -6,6 +6,14 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     phone = models.CharField(max_length=255, default="")
+    facebook = models.CharField(max_length=500, default="", blank=True)
+    linkedin = models.CharField(max_length=500, default="", blank=True)
+    youtube = models.CharField(max_length=500, default="", blank=True)
+    instagram = models.CharField(max_length=500, default="", blank=True)
+    skype = models.CharField(max_length=500, default="", blank=True)
+    whatsapp = models.CharField(max_length=500, default="", blank=True)
+    viber = models.CharField(max_length=500, default="", blank=True)
+    telegram = models.CharField(max_length=500, default="", blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 

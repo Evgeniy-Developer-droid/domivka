@@ -54,12 +54,37 @@ class RealEstateForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     phone = forms.CharField(widget=forms.TextInput(attrs={
-        "class": "form-control", "placeholder": "+380000000000"
-    }))
+        "class": "form-control", "placeholder": "380000000000"
+    }), required=False)
+    facebook = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "facebook.com..."
+    }), required=False)
+    linkedin = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "linkedin.com..."
+    }), required=False)
+    youtube = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "youtube.com..."
+    }), required=False)
+    instagram = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "instagram.com..."
+    }), required=False)
+    skype = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "yourskypename"
+    }), required=False)
+    whatsapp = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "380000000000"
+    }), required=False)
+    viber = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "380000000000"
+    }), required=False)
+    telegram = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "yourtelegramname"
+    }), required=False)
     action = forms.CharField(widget=forms.HiddenInput(attrs={
-        "value":"profile"
+        "value": "profile"
     }))
 
     class Meta:
         model = Profile
-        fields = ('phone', )
+        fields = ('phone', 'facebook', 'linkedin', 'youtube', 'instagram',
+                  'skype', 'whatsapp', 'viber', 'telegram',)
