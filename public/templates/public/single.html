@@ -150,6 +150,8 @@
                     <div class="card-body">
 
                         <div class="phone_info text-center">
+                            <div class="avatar-md rounded-circle d-inline-block" style="background-image: url('{% if item.user.profile.avatar %}{{ item.user.profile.avatar.url }}{% else %}{% static 'user/img/avatar.webp' %}{% endif %}')"></div>
+                            <p class="h6 text-dark">{{ item.user.first_name }} {{ item.user.last_name }}</p>
                             <button class="btn btn-outline-dark  btn-lg" id="check-phone">+380*********</button>
                             <input type="hidden" value="{{ item.user.profile.phone }}" id="phone">
                             <input type="hidden" value="{{ item.pk }}" id="real_id">

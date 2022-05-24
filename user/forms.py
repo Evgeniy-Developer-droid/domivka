@@ -35,6 +35,27 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
+class FirstLastNameForm(forms.ModelForm):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "Ім'я"
+    }))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "Прізвище"
+    }))
+    action = forms.CharField(widget=forms.HiddenInput(attrs={
+        "value": "first_last_name"
+    }))
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name',)
+
+    # def __init__(self, *args, **kwargs):
+    #     super(FirstLastNameForm, self).__init__(*args, **kwargs)
+    #     for visible in self.visible_fields():
+    #         visible.field.widget.attrs['class'] = 'form-control'
+
+
 class SignUpForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30,widget=forms.TextInput(attrs={
         "class": "form-control", "placeholder": "Ім'я"

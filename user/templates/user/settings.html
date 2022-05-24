@@ -11,38 +11,68 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'public/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'user/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'user/css/settings.css' %}">
     <script>
         const urls = {
+            changeUserAvatar: "{% url 'api-change-user-avatar' %}",
         }
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SMKJZECY93"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMKJZECY93"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-  gtag('config', 'G-SMKJZECY93');
-</script>
+        gtag('config', 'G-SMKJZECY93');
+    </script>
 </head>
 <body class="bg-light">
 {% include 'user/pieces/header-user.html' %}
 
 <main class="">
     <div class="container">
-        <div class="row">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
             <div class="col">
-                <div class="card p-3">
+                <div class="card p-3 m-2 align-items-center">
+                    <div class="rounded-circle avatar-lg" id="avatar-wrap"
+                         style="background-image: url('{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'user/img/avatar.webp' %}{% endif %}')"></div>
+                    <button class="btn btn-primary m-2" id="btn-avatar">Оновити</button>
+                    <input type="file" accept="image/*" class="d-none" id="avatar-input">
+                </div>
+            </div>
+            <div class="col">
+                <div class="card p-3 m-2">
                     <form action="" method="post">
-                        {% if message %}
-                            <div class="alert alert-success text-center">{{ message }}</div>
+                        {% if message_fl %}
+                            <div class="alert alert-success text-center">{{ message_fl }}</div>
                         {% endif %}
                         {% csrf_token %}
-                    {{ form_profile.action }}
+                        {{ form_fl.action }}
+                        <div class="mb-3">
+                            {{ form_fl.first_name }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_fl.last_name }}
+                        </div>
+                        <button class="btn btn-primary mb-3">Оновити</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card p-3 m-2">
+                    <form action="" method="post">
+                        {% if message_profile %}
+                            <div class="alert alert-success text-center">{{ message_profile }}</div>
+                        {% endif %}
+                        {% csrf_token %}
+                        {{ form_profile.action }}
                         <div class="mb-3 d-flex"><span class="m-2 text-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
                                               <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
                                             </svg></span>{{ form_profile.phone }}</div>
-                            <div class="mb-3 d-flex"><span class="m-2 text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                        <div class="mb-3 d-flex"><span class="m-2 text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
                                                 <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
                                             </svg></span>{{ form_profile.facebook }}</div>
                         <div class="mb-3 d-flex"><span class="m-2" style="color: #bc1888;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
@@ -66,7 +96,7 @@
                         <div class="mb-3 d-flex"><span class="m-2 text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
                                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/>
                                             </svg></span>{{ form_profile.telegram }}</div>
-                            <button class="btn btn-primary mb-3">Оновити</button>
+                        <button class="btn btn-primary mb-3">Оновити</button>
                     </form>
                 </div>
             </div>
@@ -76,5 +106,6 @@
 <script src="{% static 'public/js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'public/js/jquery.sticky.js' %}"></script>
 <script src="{% static 'public/js/header.js' %}"></script>
+<script src="{% static 'user/js/settings.js' %}"></script>
 </body>
 </html>

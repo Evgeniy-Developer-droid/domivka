@@ -2,10 +2,12 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.templatetags.static import static
 
 
 class Profile(models.Model):
     phone = models.CharField(max_length=255, default="")
+    avatar = models.ImageField(upload_to='avatars/', default=static('user/img/avatar.webp'))
     facebook = models.CharField(max_length=500, default="", blank=True)
     linkedin = models.CharField(max_length=500, default="", blank=True)
     youtube = models.CharField(max_length=500, default="", blank=True)

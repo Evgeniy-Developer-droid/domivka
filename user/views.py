@@ -16,7 +16,8 @@ from user.models import Profile
 from user.token import account_activation_token
 from django.core.mail import EmailMessage
 
-from user.forms import LoginForm, SignUpForm, ResetPasswordForm, EmailForm, RealEstateForm, ProfileForm
+from user.forms import LoginForm, SignUpForm, ResetPasswordForm, EmailForm, RealEstateForm, ProfileForm, \
+    FirstLastNameForm
 
 
 def sign_out(request):
@@ -110,15 +111,26 @@ def dashboard(request):
 def settings_(request):
     try:
         instance = Profile.objects.get(user=request.user)
+        user_instance = User.objects.get(pk=request.user.pk)
         form_profile = ProfileForm(request.POST or None, instance=instance)
+        form_fl = FirstLastNameForm(request.POST or None, instance=user_instance)
         if request.method == 'POST':
             if request.POST.get('action', "") == "profile":
                 if form_profile.is_valid():
                     form_profile.save()
                     return render(request, 'user/settings.html', {'title': "Налаштування",
                                                                   'form_profile': form_profile,
-                                                                  'message': "Інформація оновлена"})
-        return render(request, 'user/settings.html', {'title': "Налаштування", 'form_profile': form_profile})
+                                                                  "form_fl": form_fl,
+                                                                  'message_profile': "Інформація оновлена"})
+            if request.POST.get('action', "") == "first_last_name":
+                if form_fl.is_valid():
+                    form_fl.save()
+                    return render(request, 'user/settings.html', {'title': "Налаштування",
+                                                                  'form_profile': form_profile,
+                                                                  "form_fl": form_fl,
+                                                                  'message_fl': "Інформація оновлена"})
+        return render(request, 'user/settings.html', {'title': "Налаштування", 'form_profile': form_profile,
+                                                      "form_fl": form_fl})
     except Profile.DoesNotExist:
         return render(request, 'user/info.html',
                       {'title': "Помилка", 'content': 'Налаштування не знайдено'})

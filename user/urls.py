@@ -1,5 +1,6 @@
 from django.urls import path, re_path
 from . import views
+from .tools import api
 
 urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
@@ -14,4 +15,6 @@ urlpatterns = [
     path('password-reset/complete/', views.password_reset_complete, name="password-reset-complete"),
     re_path(r'^activate/(?P<uidb64>[\dA-Za-z_\-]+)/(?P<token>[\dA-Za-z]{1,13}-[\dA-Za-z]{1,100})/$',
             views.activate, name='activate'),
+
+    path('api/change-user-avatar/', api.change_user_avatar, name='api-change-user-avatar'),
 ]
