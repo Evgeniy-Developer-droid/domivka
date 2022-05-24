@@ -30,31 +30,40 @@
 <main class="text-center">
     <div class="container">
         <h2>Реєстрація</h2>
+        {% if form.username.errors or form.first_name.errors or form.last_name.errors or form.email.errors or form.password1.errors or form.password2.errors %}
+            <div class="alert alert-danger">
+            {{ form.username.errors }}
+            {{ form.first_name.errors }}
+            {{ form.last_name.errors }}
+            {{ form.email.errors }}
+            {{ form.password1.errors }}
+            {{ form.password2.errors }}
+        </div>
+        {% endif %}
     <form action="." method="post" autocomplete="off" class="form-custom">
         {% csrf_token %}
-
         <div class="input-group mb-3">
-            <input placeholder="Нікнейм" class="form-control" type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
+            {{ form.username }}
         </div>
 
         <div class="input-group mb-3">
-            <input placeholder="Ім'я" class="form-control" type="text" name="first_name" maxlength="30" id="id_first_name">
+            {{ form.first_name }}
         </div>
 
         <div class="input-group mb-3">
-            <input placeholder="Прізвище" class="form-control" type="text" name="last_name" maxlength="30" id="id_last_name">
+            {{ form.last_name }}
         </div>
 
         <div class="input-group mb-3">
-            <input placeholder="Електронна пошта" class="form-control" type="email" name="email" maxlength="254" required="" id="id_email">
+            {{ form.email }}
         </div>
 
         <div class="input-group mb-3">
-            <input placeholder="Пароль" class="form-control" type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
+            {{ form.password1 }}
         </div>
 
         <div class="input-group mb-3">
-            <input placeholder="Підтвердження паролю" class="form-control" type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
+            {{ form.password2 }}
         </div>
 
         <button class="w-100 btn-lg btn btn-primary" type="submit">Зареєструватися</button>

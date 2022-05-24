@@ -77,6 +77,7 @@ def sign_up(request):
                 user = authenticate(username=user.username, password=raw_password)
                 login(request, user)
                 return redirect('dashboard')
+        return render(request, 'user/signup.html', {'form': form, "title": "Раєстрація"})
     else:
         form = SignUpForm()
     return render(request, 'user/signup.html', {'form': form, "title": "Раєстрація"})

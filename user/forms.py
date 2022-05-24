@@ -1,9 +1,21 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 
 from public.models import RealEstate
 from user.models import Profile
+
+alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Нікнейм не повинен містити кирилицю')
+
+# def unic(value):
+#     if value % 2 != 0:
+#         raise ValidationError(
+#             _('%(value)s is not an even number'),
+#             params={'value': value},
+#         )
 
 
 class ResetPasswordForm(forms.Form):
@@ -23,14 +35,39 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
-class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+class SignUpForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30,widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "Ім'я"
+    }))
+    username = forms.CharField(max_length=30, validators=[alphanumeric], widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "Нікнейм"
+    }))
+    last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={
+        "class": "form-control", "placeholder": "Прізвище"
+    }))
+    password1 = forms.CharField(max_length=30, widget=forms.PasswordInput(attrs={
+        'class': 'form-control', 'placeholder': 'Пароль'}), validators=[validate_password])
+    password2 = forms.CharField(max_length=30, widget=forms.PasswordInput(attrs={
+        'class': 'form-control', 'placeholder': 'Повторіть пароль'}))
+    email = forms.EmailField(max_length=254, widget=forms.EmailInput(attrs={
+        'class': 'form-control', 'placeholder': 'Електронна пошта', 'autocomplete': 'off'}))
 
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+        username = cleaned_data.get("username")
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+        if User.objects.filter(email=email).exists():
+            self.add_error('email', "Користувач з такою електронною поштою існує")
+        if User.objects.filter(username=username).exists():
+            self.add_error('username', "Користувач з таким нікнеймом існує")
+        if password1 != password2:
+            self.add_error('password1', "Паролі не співпадають")
 
 
 class RealEstateForm(forms.ModelForm):
