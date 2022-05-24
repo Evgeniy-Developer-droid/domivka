@@ -45,7 +45,7 @@ class SignUpForm(forms.ModelForm):
     last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={
         "class": "form-control", "placeholder": "Прізвище"
     }))
-    password1 = forms.CharField(max_length=30, widget=forms.PasswordInput(attrs={
+    password = forms.CharField(max_length=30, widget=forms.PasswordInput(attrs={
         'class': 'form-control', 'placeholder': 'Пароль'}), validators=[validate_password])
     password2 = forms.CharField(max_length=30, widget=forms.PasswordInput(attrs={
         'class': 'form-control', 'placeholder': 'Повторіть пароль'}))
@@ -54,20 +54,20 @@ class SignUpForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+        fields = ('username', 'first_name', 'last_name', 'email', 'password', 'password2', )
 
     def clean(self):
         cleaned_data = super().clean()
         email = cleaned_data.get("email")
         username = cleaned_data.get("username")
-        password1 = cleaned_data.get("password1")
+        password = cleaned_data.get("password")
         password2 = cleaned_data.get("password2")
         if User.objects.filter(email=email).exists():
             self.add_error('email', "Користувач з такою електронною поштою існує")
         if User.objects.filter(username=username).exists():
             self.add_error('username', "Користувач з таким нікнеймом існує")
-        if password1 != password2:
-            self.add_error('password1', "Паролі не співпадають")
+        if password != password2:
+            self.add_error('password', "Паролі не співпадають")
 
 
 class RealEstateForm(forms.ModelForm):

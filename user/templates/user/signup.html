@@ -30,13 +30,13 @@
 <main class="text-center">
     <div class="container">
         <h2>Реєстрація</h2>
-        {% if form.username.errors or form.first_name.errors or form.last_name.errors or form.email.errors or form.password1.errors or form.password2.errors %}
+        {% if form.username.errors or form.first_name.errors or form.last_name.errors or form.email.errors or form.password.errors or form.password2.errors %}
             <div class="alert alert-danger">
             {{ form.username.errors }}
             {{ form.first_name.errors }}
             {{ form.last_name.errors }}
             {{ form.email.errors }}
-            {{ form.password1.errors }}
+            {{ form.password.errors }}
             {{ form.password2.errors }}
         </div>
         {% endif %}
@@ -59,7 +59,7 @@
         </div>
 
         <div class="input-group mb-3">
-            {{ form.password1 }}
+            {{ form.password }}
         </div>
 
         <div class="input-group mb-3">

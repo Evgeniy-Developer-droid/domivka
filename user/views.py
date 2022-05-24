@@ -54,6 +54,7 @@ def sign_up(request):
 
             if settings.EMAIL_CONFIRM:
                 user.is_active = False
+                user.set_password(form.cleaned_data.get('password'))
                 user.save()
                 current_site = get_current_site(request)
                 mail_subject = 'Посилання для активації надіслано на вашу електронну адресу'
