@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, validate_slug
 
 from public.models import RealEstate
 from user.models import Profile
@@ -57,10 +57,11 @@ class FirstLastNameForm(forms.ModelForm):
 
 
 class SignUpForm(forms.ModelForm):
+    validate_slug.message = "Введіть дійсний «Нікнейм», що складається з латинських літер, цифр, символів підкреслення або дефісів."
     first_name = forms.CharField(max_length=30,widget=forms.TextInput(attrs={
         "class": "form-control", "placeholder": "Ім'я"
     }))
-    username = forms.CharField(max_length=30, validators=[alphanumeric], widget=forms.TextInput(attrs={
+    username = forms.CharField(max_length=30, validators=[validate_slug], widget=forms.TextInput(attrs={
         "class": "form-control", "placeholder": "Нікнейм"
     }))
     last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={
