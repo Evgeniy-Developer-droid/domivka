@@ -91,25 +91,28 @@ USE_I18N = True
 USE_TZ = True
 
 EMAIL_CONFIRM = True
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'evgeniy.python.developer@gmail.com'
-EMAIL_HOST_PASSWORD = 'iemmevdatpsepdxr'
-EMAIL_PORT = 587
+SERVER_EMAIL = 'domivka@domivka.org.ua'
 
-# if DEBUG:
-#     EMAIL_USE_TLS = True
-#     EMAIL_HOST = 'smtp.gmail.com'
-#     EMAIL_HOST_USER = 'evgeniy.python.developer@gmail.com'
-#     EMAIL_HOST_PASSWORD = 'iemmevdatpsepdxr'
-#     EMAIL_PORT = 587
-# else:
-#     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#     EMAIL_USE_SSL = True
-#     EMAIL_HOST = 'smtp.hostinger.com'
-#     EMAIL_HOST_USER = 'domivka@domivka.org.ua'
-#     EMAIL_HOST_PASSWORD = 'FfnNm]NUfd_42.^a'
-#     EMAIL_PORT = 465
+if DEBUG:
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = 'evgeniy.python.developer@gmail.com'
+    EMAIL_HOST_PASSWORD = 'iemmevdatpsepdxr'
+    EMAIL_PORT = 587
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_SSL = True
+    EMAIL_HOST = 'smtp.hostinger.com'
+    EMAIL_HOST_USER = 'domivka@domivka.org.ua'
+    EMAIL_HOST_PASSWORD = 'FfnNm]NUfd_42.^a'
+    EMAIL_PORT = 465
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_SSL = True
+# EMAIL_HOST = 'smtp.hostinger.com'
+# EMAIL_HOST_USER = 'domivka@domivka.org.ua'
+# EMAIL_HOST_PASSWORD = 'FfnNm]NUfd_42.^a'
+# EMAIL_PORT = 465
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
