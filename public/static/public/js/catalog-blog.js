@@ -157,7 +157,7 @@ jQuery(document).ready(function (){
                                                </div>
                                         <hr class="my-2" />
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col d-flex justify-content-between align-items-center">
                                                 <div class="p-2 rounded-5 price"><b>${val.price}</b> грн${val.service_type === "sale" ? "" : "/місяць"}</div>
                                                 <small class="text-light">${val.city}</small>
                                             </div>
