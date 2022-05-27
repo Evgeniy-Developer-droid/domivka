@@ -19,6 +19,7 @@ class RealEstate(models.Model):
     price = models.IntegerField(default=0)
     rooms = models.IntegerField(default=1)
     address = models.CharField(max_length=255, null=True, blank=True)
+    name = models.CharField(max_length=255, default="Нерухомість")
     city = models.CharField(max_length=1000, default="")
     region = models.CharField(max_length=1000, default="")
     city_code = models.CharField(max_length=255, default="")

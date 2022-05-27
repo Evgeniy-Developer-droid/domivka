@@ -102,7 +102,7 @@ class RealEstateForm(forms.ModelForm):
 
     class Meta:
         model = RealEstate
-        fields = ('thumbnail', 'description', 'price', 'rooms', 'address',
+        fields = ('thumbnail', 'description', 'price', 'rooms', 'address', 'name',
                   'city', 'region', 'city_code', 'region_code', 'type_real_estate', 'service_type', )
 
     def __init__(self, *args, **kwargs):

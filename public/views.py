@@ -5,12 +5,19 @@ from public.models import RealEstate, RealEstateImage, Report
 from public.tools.functions import get_seo
 
 
+def test(req):
+    return render(req, 'user/emails/acc_active_email.html')
+
 def home(request):
     return render(request, 'public/home.html', {"title": "Головна сторінка", 'seo': get_seo()})
 
 
-def catalog(request):
-    return render(request, 'public/catalog.html', {"title": "Каталог", 'seo': get_seo()})
+# def catalog(request):
+#     return render(request, 'public/catalog.html', {"title": "Каталог", 'seo': get_seo()})
+
+
+def catalog_blog(request):
+    return render(request, 'public/catalog-blog-type.html', {"title": "Каталог", 'seo': get_seo()})
 
 
 def contact_us(request):

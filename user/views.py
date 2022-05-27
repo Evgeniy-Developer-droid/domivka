@@ -70,6 +70,7 @@ def sign_up(request):
                 email = EmailMessage(
                     mail_subject, message, to=[to_email]
                 )
+                email.content_subtype = 'html'
                 email.send()
                 return render(request, 'user/info.html', {"title": "Раєстрація",
                     'content': 'Підтвердьте свою електронну адресу, щоб завершити реєстрацію'})
@@ -200,6 +201,7 @@ def password_reset(request):
                     email = EmailMessage(
                         mail_subject, message, to=[to_email]
                     )
+                    email.content_subtype = 'html'
                     email.send()
                     return redirect('password-reset-done')
                 except User.DoesNotExist:

@@ -54,7 +54,11 @@ def get_real_estate(request):
             "type_real_estate": query.type_real_estate,
             "city": query.city,
             "rooms": query.rooms,
-            "service_type": query.service_type
+            "name": query.name,
+            "service_type": query.service_type,
+            "count_photos": RealEstateImage.objects.filter(real_estate=query.pk).count(),
+            "user_logo": query.user.profile.avatar.url if query.user.profile.avatar else static('user/img/avatar.webp'),
+            "user_full_name": " ".join([query.user.first_name, query.user.last_name])
         }
 
     sort_params = dict()
@@ -100,3 +104,4 @@ def get_real_estate(request):
     response['now_page'] = page_obj.number
     response['data'] = [queryset_to_dict(item) for item in page_obj.object_list]
     return JsonResponse(response)
+
